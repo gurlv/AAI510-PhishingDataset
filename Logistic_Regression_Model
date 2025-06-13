@@ -1,0 +1,66 @@
+/content/dataset_phishing.csv
+
+!pip install pandas numpy scikit-learn matplotlib
+
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import classification_report, confusion_matrix, roc_auc_score
+import matplotlib.pyplot as plt
+
+df = pd.read_csv('/content/dataset_phishing.csv')
+df.head()
+
+print(df.columns)
+print(df.info())
+print(df['status'].value_counts())
+
+print(df.columns)
+df.head()
+
+print(df.columns)  # See all column names
+print(df['status'].value_counts())  # See label distribution
+
+# Map 'phishing' to 1 and 'legitimate' to 0
+df['label'] = df['status'].map({'phishing': 1, 'legitimate': 0})
+
+# Drop rows where mapping didn't work
+df = df.dropna(subset=['label'])
+
+# Exclude the target label and any non-numeric column
+X = df.drop(columns=['status', 'label'])
+if 'url' in X.columns:
+    X = X.drop(columns=['url'])  # Drops 'url' column if present
+
+y = df['label']
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
+
+model = LogisticRegression(max_iter=200, solver='liblinear')
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+y_prob = model.predict_proba(X_test)[:, 1]
+
+print(classification_report(y_test, y_pred))
+print("ROC-AUC Score:", roc_auc_score(y_test, y_prob))
+
+cm = confusion_matrix(y_test, y_pred)
+plt.matshow(cm, cmap='Blues')
+plt.title('Confusion Matrix')
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+plt.colorbar()
+plt.show()
+
+feature_names = X.columns
+coefs = model.coef_[0]
+top_features = np.argsort(np.abs(coefs))[-20:]
+
+print("Top important features for classification:")
+for i in top_features:
+    print(f"{feature_names[i]}: {coefs[i]:.4f}")
