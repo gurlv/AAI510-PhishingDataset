@@ -118,15 +118,12 @@ MLOps Pipeline: Continuous monitoring and retraining
 
 # 📚 References & Citations
 
-Dataset Source:
+## Dataset Source:
 
 Hannousse, A., & Yahiouche, S. (2021). Web page phishing detection 
 [Dataset]. Mendeley Data, V3. https://doi.org/10.17632/c2gw7fy2j4.3
 
-FBI Internet Crime Report 2023:
-IC3 Annual Report
-XGBoost Documentation:
-Official XGBoost Guide
+FBI Internet Crime Report 2023: IC3 Annual Report https://www.ic3.gov/Media/PDF/AnnualReport/2023_IC3Report.pdf
 
 
 # 📄 License
