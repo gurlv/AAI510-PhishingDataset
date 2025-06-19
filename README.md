@@ -42,22 +42,22 @@ doi: 10.17632/c2gw7fy2j4.3
 ## Prerequisites
 
 **bash**
-
+```bash
 pip install pandas numpy scikit-learn xgboost matplotlib seaborn
+```
 
 ## Running the Model
 
-**python**
+```bash
+# Clone the repository
+git clone https://github.com/gurlv/AAI510-PhishingDataset.git
 
-_#Clone the repository_
+# Navigate into the project directory
+cd AAI510-PhishingDataset
 
-git clone https://github.com/[your-username]/phishing-detection
+# Run the complete pipeline on jupyter 
+```
 
-cd phishing-detection
-
-_#Run the complete pipeline_
-
-python phishing_detection_model.py
 
 # 🔧 Model Architecture 
 
